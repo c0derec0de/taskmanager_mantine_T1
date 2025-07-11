@@ -2,9 +2,9 @@ import React from "react";
 import { Burger, Container } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./MainPage.module.css";
-import { TaskList } from "../../components/TaskList/TaskList";
-import { TaskFilterMenu } from "../../components/TaskFilterMenu/TaskFilterMenu";
-import { useTasks } from "../../context/TaskContext";
+import { TaskList } from "@widgets/TaskList/TaskList";
+import { TaskFilterMenu } from "@features/filter-tasks/ui/TaskFilterMenu";
+import { useTasks } from "@app/providers/TaskContext";
 
 const MainPage = () => {
   const [opened, { toggle }] = useDisclosure(false);

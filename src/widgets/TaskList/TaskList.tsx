@@ -1,6 +1,6 @@
 import { Container, SimpleGrid, Stack, Title, Paper } from "@mantine/core";
-import { TaskItem } from "../TaskItem/TaskItem";
-import { StatusTask, type Task } from "../../types/TaskTypes";
+import { TaskItem } from "@entities/task/ui/TaskItem";
+import { StatusTask, type Task } from "@shared/types/TaskTypes";
 
 interface TaskListProps {
   tasks: Task[];
@@ -22,11 +22,7 @@ export function TaskList({ tasks }: TaskListProps) {
         {statuses.map((status) => (
           <Stack key={status.value}>
             <Title order={4}>{status.label}</Title>
-            <Paper
-                p="sm"
-                radius="md"
-                bg="transparent"
-                >
+            <Paper p="sm" radius="md" bg="transparent">
               <Stack>
                 {getTasksByStatus(status.value).map((task) => (
                   <TaskItem key={task.id} task={task} />

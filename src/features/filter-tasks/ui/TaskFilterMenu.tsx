@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IconChevronDown } from "@tabler/icons-react";
 import { Center, Group, Menu } from "@mantine/core";
 import classes from "./TaskFilterMenu.module.css";
-import { CategoryTask, PriorityTask } from "../../types/TaskTypes";
+import { CategoryTask, PriorityTask } from "@shared/types/TaskTypes";
 
 interface TaskFilterMenuProps {
   onFilterChange: (filters: { category?: string; priority?: string }) => void;
@@ -21,8 +21,18 @@ export const TaskFilterMenu: React.FC<TaskFilterMenuProps> = ({
     if (type === "priority") setPriority(isAll ? null : value);
 
     onFilterChange({
-      category: type === "category" ? (isAll ? undefined : value) : category || undefined,
-      priority: type === "priority" ? (isAll ? undefined : value) : priority || undefined,
+      category:
+        type === "category"
+          ? isAll
+            ? undefined
+            : value
+          : category || undefined,
+      priority:
+        type === "priority"
+          ? isAll
+            ? undefined
+            : value
+          : priority || undefined,
     });
   };
 

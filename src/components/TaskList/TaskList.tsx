@@ -22,7 +22,11 @@ export function TaskList({ tasks }: TaskListProps) {
         {statuses.map((status) => (
           <Stack key={status.value}>
             <Title order={4}>{status.label}</Title>
-            <Paper shadow="xs" p="sm" radius="md" withBorder>
+            <Paper
+                p="sm"
+                radius="md"
+                bg="transparent"
+                >
               <Stack>
                 {getTasksByStatus(status.value).map((task) => (
                   <TaskItem key={task.id} task={task} />

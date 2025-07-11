@@ -1,47 +1,30 @@
 import { Badge, Button, Card, Group, Text } from "@mantine/core";
 import classes from "./TaskItem.module.css";
 import type { Task } from "@shared/types/TaskTypes";
-import { badgesStyles } from "./badgesStyles";
+import { badgesStyles } from "../model/badgesStyles";
 import { useNavigate } from "react-router-dom";
+import { getCardBackground } from "../model/cardBackground";
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();
-
-  function getCardBackground(priority: Task["priority"]) {
-    switch (priority) {
-      case "high":
-        return "#ffe5e5";
-      case "medium":
-        return "#fff8e1";
-      case "low":
-        return "#e8f5e9";
-      default:
-        return "#ffffff";
-    }
-  }
 
   const handleGoEditTask = () => {
     navigate(`/task/${task.id}`);
   };
 
-  function getCategoryBadge(category: Task["category"]) {
-    const item = badgesStyles.badgesCategory.find((i) => i.key === category);
+  function getBadge<T extends { key: string; label: string; emoji: string }>(
+    list: T[],
+    key: string,
+    color: string
+  ) {
+    const item = list.find((i) => i.key === key);
     return item ? (
-      <Badge color="blue" variant="light">
+      <Badge color={color} variant="light">
         {item.emoji} {item.label}
       </Badge>
     ) : null;
   }
-
-  function getPriorityBadge(priority: Task["priority"]) {
-    const item = badgesStyles.badgesPriority.find((i) => i.key === priority);
-    return item ? (
-      <Badge color="gray" variant="light">
-        {item.emoji} {item.label}
-      </Badge>
-    ) : null;
-  }
-
+  
   return (
     <Card
       withBorder
@@ -56,14 +39,14 @@ export function TaskItem({ task }: { task: Task }) {
             {task.title}
           </Text>
         </Group>
-        <Text fz="sm" mt="xs">
+        <Text fz="sm" mt="xs" className={classes.description}>
           {task.description}
         </Text>
       </Card.Section>
 
       <Group mt="sm">
-        {getCategoryBadge(task.category)}
-        {getPriorityBadge(task.priority)}
+        {getBadge(badgesStyles.badgesCategory, task.category, "blue")}
+        {getBadge(badgesStyles.badgesPriority, task.priority, "gray")}
       </Group>
 
       <Group mt="md">

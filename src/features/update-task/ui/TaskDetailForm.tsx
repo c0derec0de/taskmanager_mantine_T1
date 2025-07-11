@@ -8,15 +8,11 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useEffect } from "react";
 import { categories, statuses, priorities } from "../types/DetailConstants";
 import {
-  CategoryTask,
-  PriorityTask,
-  StatusTask,
   type Task,
 } from "@shared/types/TaskTypes";
+import { useTaskForm } from "../model/useTaskForm";
 
 interface TaskFormProps {
   task: Task;
@@ -25,37 +21,7 @@ interface TaskFormProps {
 }
 
 export function TaskDetailForm({ task, onCancel, onSave }: TaskFormProps) {
-  const form = useForm({
-    initialValues: {
-      title: task?.title || "",
-      description: task?.description || "",
-      category: task?.category || CategoryTask.BUG,
-      status: task?.status || StatusTask.TO_DO,
-      priority: task?.priority || PriorityTask.LOW,
-    },
-    validate: {
-      title: (value) => (value.trim().length > 0 ? null : "Введите название"),
-      description: (value) =>
-        value.trim().length > 0 ? null : "Введите описание",
-    },
-  });
-
-  useEffect(() => {
-    form.setValues({
-      title: task.title,
-      description: task.description,
-      category: task.category,
-      status: task.status,
-      priority: task.priority,
-    });
-  }, [task]);
-
-  const handleSubmit = () => {
-    onSave({
-      ...task,
-      ...form.values,
-    });
-  };
+  const { form, handleSubmit } = useTaskForm(task, onSave);
 
   return (
     <form

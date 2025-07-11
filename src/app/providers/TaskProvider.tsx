@@ -19,17 +19,21 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     [tasks]
   );
 
+  const updateTask = useCallback(
+    (id: string, updatedTask: Task) =>
+      setTasks((tasks) =>
+        tasks.map((task) => (task.id === id ? updatedTask : task))
+      ),
+    []
+  );
+
   const contextValue = useMemo(
     () => ({
       tasks,
-      addTask: (task: Task) => setTasks((tasks) => [...tasks, task]),
-      updateTask: (id: string, updatedTask: Task) =>
-        setTasks((tasks) =>
-          tasks.map((task) => (task.id === id ? updatedTask : task))
-        ),
+      updateTask,
       filterTasks,
     }),
-    [tasks, filterTasks]
+    [tasks, updateTask, filterTasks]
   );
 
   return (

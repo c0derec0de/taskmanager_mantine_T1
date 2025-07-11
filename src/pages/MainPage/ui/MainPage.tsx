@@ -1,15 +1,12 @@
 import React from "react";
-import { Burger, Container } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Container } from "@mantine/core";
 import classes from "./MainPage.module.css";
 import { TaskList } from "@widgets/TaskList/TaskList";
-import { TaskFilterMenu } from "@features/filter-tasks/ui/TaskFilterMenu";
+import { TaskFilterMenu } from "@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu";
 import { useTasks } from "@app/providers/TaskContext";
 
 const MainPage = () => {
-  const [opened, { toggle }] = useDisclosure(false);
   const { tasks } = useTasks();
-
   const [filteredTasks, setFilteredTasks] = React.useState(tasks);
 
   const handleFilterChange = (filters: {
@@ -36,7 +33,6 @@ const MainPage = () => {
       <Container size="md">
         <div className={classes.inner}>
           <TaskFilterMenu onFilterChange={handleFilterChange} />
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
         </div>
       </Container>
 

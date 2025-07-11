@@ -20,3 +20,13 @@
     font-size: var(--mantine-font-size-xs);
     font-weight: 700;
   }
+
+  .description {
+    display: -webkit-box;       
+    -webkit-line-clamp: 2;                  
+    -webkit-box-orient: vertical;
+    overflow: hidden;         
+    text-overflow: ellipsis;   
+    white-space: normal;        
+  }
+  

@@ -3,7 +3,6 @@ import type { Task } from "@shared/types/TaskTypes";
 
 interface TaskContextType {
   tasks: Task[];
-  addTask: (task: Task) => void;
   updateTask: (id: string, updatedTask: Task) => void;
   filterTasks: (filters: {
     category?: string;
@@ -19,7 +18,7 @@ export const TaskContext = createContext<TaskContextType | undefined>(
 export const useTasks = () => {
   const context = useContext(TaskContext);
   if (!context) {
-    throw new Error("useTasks must be used within a TaskProvider");
+    throw new Error("Контекст не найден");
   }
   return context;
 };

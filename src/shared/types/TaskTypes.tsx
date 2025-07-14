@@ -1,21 +1,21 @@
 export const CategoryTask = {
-  BUG: "bug",
-  FEATURE: "feature",
-  DOCUMENTATION: "documentation",
-  REFACTOR: "refactor",
-  TEST: "test",
+  BUG: 'bug',
+  FEATURE: 'feature',
+  DOCUMENTATION: 'documentation',
+  REFACTOR: 'refactor',
+  TEST: 'test',
 } as const;
 
 export const StatusTask = {
-  TO_DO: "to do",
-  IN_PROGRESS: "in progress",
-  DONE: "done",
+  TO_DO: 'to do',
+  IN_PROGRESS: 'in progress',
+  DONE: 'done',
 } as const;
 
 export const PriorityTask = {
-  LOW: "low",
-  MEDIUM: "medium",
-  HIGH: "high",
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
 } as const;
 
 export type CategoryTask = (typeof CategoryTask)[keyof typeof CategoryTask];

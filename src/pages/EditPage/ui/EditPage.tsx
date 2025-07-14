@@ -1,4 +1,4 @@
-import { TaskDetail } from "@features/update-task/model/TaskDetail";
+import { TaskDetail } from '@features/update-task/model/TaskDetail';
 
 const EditPage = () => {
   return (

@@ -1,9 +1,9 @@
-import React from "react";
-import { Container } from "@mantine/core";
-import classes from "./MainPage.module.css";
-import { TaskList } from "@widgets/TaskList/TaskList";
-import { TaskFilterMenu } from "@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu";
-import { useTasks } from "@app/providers/TaskContext";
+import React from 'react';
+import { Container } from '@mantine/core';
+import classes from './MainPage.module.css';
+import { TaskList } from '@widgets/TaskList/TaskList';
+import { TaskFilterMenu } from '@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu';
+import { useTasks } from '@app/providers/TaskContext';
 
 const MainPage = () => {
   const { tasks } = useTasks();
@@ -30,7 +30,7 @@ const MainPage = () => {
 
   return (
     <div className={classes.main}>
-      <Container size="md">
+      <Container size='md'>
         <div className={classes.inner}>
           <TaskFilterMenu onFilterChange={handleFilterChange} />
         </div>

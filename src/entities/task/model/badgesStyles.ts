@@ -1,48 +1,48 @@
-import { CategoryTask, PriorityTask } from "@shared/types/TaskTypes";
+import { CategoryTask, PriorityTask } from '@shared/types/TaskTypes';
 
 export const badgesStyles = {
   badgesCategory: [
     {
       key: CategoryTask.BUG,
-      label: "Bug",
-      emoji: "🐞",
+      label: 'Bug',
+      emoji: '🐞',
     },
     {
       key: CategoryTask.FEATURE,
-      label: "Feature",
-      emoji: "🚀",
+      label: 'Feature',
+      emoji: '🚀',
     },
     {
       key: CategoryTask.DOCUMENTATION,
-      label: "Docs",
-      emoji: "📄",
+      label: 'Docs',
+      emoji: '📄',
     },
     {
       key: CategoryTask.REFACTOR,
-      label: "Refactor",
-      emoji: "🛠️",
+      label: 'Refactor',
+      emoji: '🛠️',
     },
     {
       key: CategoryTask.TEST,
-      label: "Test",
-      emoji: "🧪",
+      label: 'Test',
+      emoji: '🧪',
     },
   ],
   badgesPriority: [
     {
       key: PriorityTask.LOW,
-      label: "Low",
-      emoji: "🟢",
+      label: 'Low',
+      emoji: '🟢',
     },
     {
       key: PriorityTask.MEDIUM,
-      label: "Medium",
-      emoji: "🟡",
+      label: 'Medium',
+      emoji: '🟡',
     },
     {
       key: PriorityTask.HIGH,
-      label: "High",
-      emoji: "🔴",
+      label: 'High',
+      emoji: '🔴',
     },
   ],
 };

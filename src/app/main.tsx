@@ -1,13 +1,13 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { MantineProvider } from "@mantine/core";
-import App from "./App";
-import "@mantine/core/styles.css";
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import App from './App';
+import '@mantine/core/styles.css';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <MantineProvider>

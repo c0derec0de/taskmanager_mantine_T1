@@ -1,38 +1,35 @@
-import React from 'react';
-import { Container } from '@mantine/core';
+import { Container, Button } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 import classes from './MainPage.module.css';
 import { TaskList } from '@widgets/TaskList/TaskList';
 import { TaskFilterMenu } from '@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu';
-import { useTasks } from '@app/providers/TaskContext';
+import { useAppDispatch, useAppSelector } from '@app/providers/hooks';
+import { setFilters, selectFilteredTasks } from '@app/providers/taskSlice';
 
 const MainPage = () => {
-  const { tasks } = useTasks();
-  const [filteredTasks, setFilteredTasks] = React.useState(tasks);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const filteredTasks = useAppSelector(selectFilteredTasks);
 
   const handleFilterChange = (filters: {
     category?: string;
     status?: string;
     priority?: string;
   }) => {
-    const filtered = tasks.filter((task) => {
-      return (
-        (!filters.category || task.category === filters.category) &&
-        (!filters.status || task.status === filters.status) &&
-        (!filters.priority || task.priority === filters.priority)
-      );
-    });
-    setFilteredTasks(filtered);
+    dispatch(setFilters(filters));
   };
 
-  React.useEffect(() => {
-    setFilteredTasks(tasks);
-  }, [tasks]);
-
+  const handleCreateTask = () => {
+    navigate('/task/new');
+  };
   return (
     <div className={classes.main}>
       <Container size='md'>
         <div className={classes.inner}>
           <TaskFilterMenu onFilterChange={handleFilterChange} />
+          <Button type='submit' size='sm' className={classes.addButton} onClick={handleCreateTask}>
+            Добавить задачу
+          </Button>
         </div>
       </Container>
 

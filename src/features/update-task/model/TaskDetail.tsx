@@ -1,18 +1,18 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useTasks } from '@app/providers/TaskContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Title } from '@mantine/core';
-import { TaskDetailForm } from '../ui/TaskDetailForm';
+import { TaskForm } from '../ui/TaskForm';
+import { updateTask } from '../../../app/providers/taskSlice';
+import { type Task } from '../../../shared/types/TaskTypes';
+import { useAppDispatch } from '../../../app/providers/hooks';
 
 export function TaskDetail() {
+  const { state } = useLocation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { tasks, updateTask } = useTasks();
+  const task = state?.task as Task;
 
-  const task = tasks.find((t) => t.id === id);
-
-  const handleSave = (updatedTask: typeof task) => {
-    if (!updatedTask) return;
-    updateTask(updatedTask.id, updatedTask);
+  const handleSave = (updatedTask: Task) => {
+    dispatch(updateTask({ id: task.id, updatedTask }));
     navigate('/');
   };
 
@@ -22,5 +22,5 @@ export function TaskDetail() {
     return <Title order={2}>Задача не найдена</Title>;
   }
 
-  return <TaskDetailForm task={task} onSave={handleSave} onCancel={handleCancel} />;
+  return <TaskForm task={task} onSave={handleSave} onCancel={handleCancel} />;
 }

@@ -3,12 +3,24 @@ import classes from './TaskItem.module.css';
 import type { Task } from '@shared/types/TaskTypes';
 import { badgesStyles } from '../model/badgesStyles';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../app/providers/hooks';
+import { deleteTask } from '../../../app/providers/taskSlice';
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();
 
-  const handleGoEditTask = () => navigate(`/task/${task.id}`);
-  const handleGoDeleteTask = () => {};
+  const dispatch = useAppDispatch();
+
+  const handleGoEditTask = () => {
+    navigate(`/task/${task.id}`, {
+      state: { task },
+    });
+  };
+
+  const handleGoDeleteTask = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    dispatch(deleteTask(task.id));
+  };
 
   function getBadge<T extends { key: string; label: string; emoji: string }>(
     list: T[],

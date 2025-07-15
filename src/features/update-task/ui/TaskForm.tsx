@@ -11,7 +11,7 @@ import {
 import { categories, statuses, priorities } from '../types/DetailConstants';
 import { type Task } from '@shared/types/TaskTypes';
 import { useTaskForm } from '../model/useTaskForm';
-import classes from './TaskDetail.module.css';
+import classes from './TaskForm.module.css';
 
 interface TaskFormProps {
   task: Task;
@@ -19,7 +19,7 @@ interface TaskFormProps {
   onSave: (task: Task) => void;
 }
 
-export function TaskDetailForm({ task, onCancel, onSave }: TaskFormProps) {
+export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
   const { form, handleSubmit } = useTaskForm(task, onSave);
 
   return (

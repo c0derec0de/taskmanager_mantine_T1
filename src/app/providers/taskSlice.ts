@@ -1,6 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Task } from '@shared/types/TaskTypes';
-import { mockTasks } from '../../data/mock/mockTasks';
+import { loadFromLocalStorage, saveToLocalStorage } from '../../shared/storage/localStorage';
+import { mockTasks } from '@/data/mock/mockTasks';
+
+const TASKS_KEY = 'tasks';
 
 type TasksState = {
   tasks: Task[];
@@ -12,28 +15,32 @@ type TasksState = {
 };
 
 const initialState: TasksState = {
-  tasks: mockTasks,
+  tasks: loadFromLocalStorage(TASKS_KEY, mockTasks),
   filters: {},
+};
+
+const saveTasks = (tasks: Task[]) => {
+  saveToLocalStorage(TASKS_KEY, tasks);
 };
 
 export const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<Task>) => {
+    createTask: (state, action: PayloadAction<Task>) => {
       state.tasks.push(action.payload);
+      saveTasks(state.tasks);
     },
     updateTask: (state, action: PayloadAction<{ id: string; updatedTask: Task }>) => {
       const index = state.tasks.findIndex((task) => task.id === action.payload.id);
       if (index !== -1) {
         state.tasks[index] = action.payload.updatedTask;
+        saveTasks(state.tasks);
       }
     },
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-    },
-    saveTasks: (state) => {
-      console.log('Tasks saved:', state.tasks);
+      saveTasks(state.tasks);
     },
     setFilters: (
       state,
@@ -48,7 +55,7 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { addTask, updateTask, deleteTask, saveTasks, setFilters } = taskSlice.actions;
+export const { createTask, updateTask, deleteTask, setFilters } = taskSlice.actions;
 
 export const selectTasks = (state: { tasks: TasksState }) => state.tasks.tasks;
 export const selectFilters = (state: { tasks: TasksState }) => state.tasks.filters;

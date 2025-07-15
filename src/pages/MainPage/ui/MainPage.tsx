@@ -1,7 +1,7 @@
 import { Container, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import classes from './MainPage.module.css';
-import { TaskList } from '@widgets/TaskList/TaskList';
+import { TaskList } from '@/entities/task/ui/TaskList/TaskList';
 import { TaskFilterMenu } from '@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu';
 import { useAppDispatch, useAppSelector } from '@app/providers/hooks';
 import { setFilters, selectFilteredTasks } from '@app/providers/taskSlice';
@@ -27,7 +27,13 @@ const MainPage = () => {
       <Container size='md'>
         <div className={classes.inner}>
           <TaskFilterMenu onFilterChange={handleFilterChange} />
-          <Button type='submit' size='sm' className={classes.addButton} onClick={handleCreateTask}>
+          <Button
+            variant='subtle'
+            size='sm'
+            onClick={handleCreateTask}
+            className={classes.addButton}
+            color='black'
+          >
             Добавить задачу
           </Button>
         </div>

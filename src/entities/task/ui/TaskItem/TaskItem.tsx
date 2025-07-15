@@ -1,10 +1,11 @@
 import { Badge, Button, Card, Group, Text } from '@mantine/core';
 import classes from './TaskItem.module.css';
 import type { Task } from '@shared/types/TaskTypes';
-import { badgesStyles } from '../model/badgesStyles';
+import { badgesStyles } from '../../model/badgesStyles';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../app/providers/hooks';
-import { deleteTask } from '../../../app/providers/taskSlice';
+import { useAppDispatch } from '../../../../app/providers/hooks';
+import { deleteTask } from '../../../../app/providers/taskSlice';
+import { dateParser } from '../../../../shared/lib/date/dateParser';
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();
@@ -45,6 +46,10 @@ export function TaskItem({ task }: { task: Task }) {
         {task.description}
       </Text>
 
+      <Text fz='sm' c='dimmed' mb='sm' className={classes.date} lineClamp={2}>
+        {dateParser(task.createdAt)}
+      </Text>
+
       <Group gap={4} mb='md' className={classes.badgesWrapper}>
         {getBadge(badgesStyles.badgesCategory, task.category, 'gray')}
         {getBadge(badgesStyles.badgesPriority, task.priority, 'gray')}
@@ -57,7 +62,7 @@ export function TaskItem({ task }: { task: Task }) {
           onClick={handleGoEditTask}
           className={classes.editButton}
         >
-          Edit
+          Изменить
         </Button>
         <Button
           variant='subtle'
@@ -66,7 +71,7 @@ export function TaskItem({ task }: { task: Task }) {
           onClick={handleGoDeleteTask}
           className={classes.deleteButton}
         >
-          Delete
+          Удалить
         </Button>
       </Group>
     </Card>

@@ -1,0 +1,56 @@
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input,
+.textarea,
+.select {
+  background-color: var(--mantine-color-body);
+  border: 1px solid var(--mantine-color-gray-3);
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: var(--mantine-primary-color-filled);
+    box-shadow: 0 0 0 2px rgba(25, 113, 194, 0.1);
+  }
+}
+
+.selectGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.primaryAction {
+  background-color: var(--mantine-primary-color-filled);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(25, 113, 194, 0.15);
+  }
+}
+
+.secondaryAction {
+  color: var(--mantine-color-gray-7);
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--mantine-color-gray-9);
+    background-color: var(--mantine-color-gray-1);
+  }
+}

@@ -1,5 +1,5 @@
 import { Container, SimpleGrid, Stack, Title, Paper } from '@mantine/core';
-import { TaskItem } from '@entities/task/ui/TaskItem';
+import { TaskItem } from '@/entities/task/ui/TaskItem/TaskItem';
 import { StatusTask, type Task } from '@shared/types/TaskTypes';
 
 interface TaskListProps {

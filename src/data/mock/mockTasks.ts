@@ -1,85 +1,86 @@
 import type { Task } from '@shared/types/TaskTypes';
 import { CategoryTask, StatusTask, PriorityTask } from '@shared/types/TaskTypes';
 
+const getRandomDate = (daysRange: number = 30): Date => {
+  const now = new Date();
+  const pastDate = new Date();
+  pastDate.setDate(now.getDate() - daysRange);
+
+  const randomBuffer = new Uint32Array(1);
+  crypto.getRandomValues(randomBuffer);
+  const random = randomBuffer[0] / (0xffffffff + 1);
+
+  return new Date(pastDate.getTime() + random * (now.getTime() - pastDate.getTime()));
+};
+
+const generateId = (): string => {
+  return crypto.randomUUID();
+};
+const getRealisticStatus = (): StatusTask => {
+  const rand = Math.random();
+  return rand < 0.4 ? StatusTask.TO_DO : rand < 0.8 ? StatusTask.IN_PROGRESS : StatusTask.DONE;
+};
+
+const getRealisticPriority = (): PriorityTask => {
+  const rand = Math.random();
+  return rand < 0.6 ? PriorityTask.MEDIUM : rand < 0.85 ? PriorityTask.LOW : PriorityTask.HIGH;
+};
+
 export const mockTasks: Task[] = [
   {
-    id: '1',
-    title: 'Исправить баг',
-    description: 'Пользователи не могут удалить таск',
+    id: generateId(),
+    title: 'Исправить баг с авторизацией',
+    description: 'Пользователи не могут войти через Google OAuth',
     category: CategoryTask.BUG,
     status: StatusTask.IN_PROGRESS,
     priority: PriorityTask.HIGH,
+    createdAt: getRandomDate(7),
   },
   {
-    id: '2',
-    title: 'Добавить смену тем',
+    id: generateId(),
+    title: 'Добавить темную тему',
     description: 'Реализовать переключение между светлой и темной темой',
     category: CategoryTask.FEATURE,
     status: StatusTask.TO_DO,
     priority: PriorityTask.MEDIUM,
+    createdAt: getRandomDate(60),
   },
   {
-    id: '3',
-    title: 'Обновить документацию',
-    description: 'Добавить раздел по настройке ESLint и Prettier',
+    id: generateId(),
+    title: 'Обновить документацию API',
+    description: 'Добавить примеры запросов для всех endpoints',
     category: CategoryTask.DOCUMENTATION,
     status: StatusTask.DONE,
     priority: PriorityTask.LOW,
+    createdAt: getRandomDate(90),
   },
   {
-    id: '4',
-    title: 'Рефакторинг',
-    description: 'Упростить компонент TaskList',
+    id: generateId(),
+    title: 'Рефакторинг модуля аутентификации',
+    description: 'Разделить на подмодули и улучшить обработку ошибок',
     category: CategoryTask.REFACTOR,
-    status: StatusTask.IN_PROGRESS,
-    priority: PriorityTask.MEDIUM,
+    status: getRealisticStatus(),
+    priority: getRealisticPriority(),
+    createdAt: getRandomDate(45),
   },
   {
-    id: '5',
-    title: 'Написать тесты',
-    description: 'Покрыть TaskItem unit-тестами',
+    id: generateId(),
+    title: 'Интеграционные тесты для платежей',
+    description: 'Покрыть тестами весь платежный модуль',
     category: CategoryTask.TEST,
-    status: StatusTask.TO_DO,
+    status: getRealisticStatus(),
     priority: PriorityTask.HIGH,
+    createdAt: getRandomDate(14),
   },
-  {
-    id: '6',
-    title: 'Настроить CI',
-    description: 'Добавить GitHub Actions для сборки проекта',
-    category: CategoryTask.FEATURE,
-    status: StatusTask.TO_DO,
-    priority: PriorityTask.MEDIUM,
-  },
-  {
-    id: '7',
-    title: 'Создать страницу профиля',
-    description: 'Добавить отображение данных пользователя',
-    category: CategoryTask.FEATURE,
-    status: StatusTask.TO_DO,
-    priority: PriorityTask.LOW,
-  },
-  {
-    id: '8',
-    title: 'Обновить зависимости',
-    description: 'Обновить все пакеты до последних версий',
-    category: CategoryTask.REFACTOR,
-    status: StatusTask.IN_PROGRESS,
-    priority: PriorityTask.MEDIUM,
-  },
-  {
-    id: '9',
-    title: 'Добавить фильтрацию задач',
-    description: 'Фильтрация по приоритету, категории и статусу',
-    category: CategoryTask.FEATURE,
-    status: StatusTask.DONE,
-    priority: PriorityTask.HIGH,
-  },
-  {
-    id: '10',
-    title: 'Улучшить производительность',
-    description: 'Мемоизировать компоненты и убрать лишние ререндеры',
-    category: CategoryTask.REFACTOR,
-    status: StatusTask.IN_PROGRESS,
-    priority: PriorityTask.HIGH,
-  },
+
+  ...Array.from({ length: 5 }, (_, i) => ({
+    id: generateId(),
+    title: `Задача ${i + 6}`,
+    description: `Описание для автоматически сгенерированной задачи #${i + 6}`,
+    category:
+      Object.values(CategoryTask)[Math.floor(Math.random() * Object.values(CategoryTask).length)],
+    status: getRealisticStatus(),
+    priority: getRealisticPriority(),
+    createdAt: getRandomDate(365),
+  })),
 ];

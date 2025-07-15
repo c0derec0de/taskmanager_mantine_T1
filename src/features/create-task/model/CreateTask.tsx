@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { TaskForm } from '../../update-task/ui/TaskForm';
-import { addTask } from '../../../app/providers/taskSlice';
+import { TaskForm } from '../../../entities/task/ui/TaskForm/TaskForm';
+import { createTask } from '../../../app/providers/taskSlice';
 import { type Task } from '../../../shared/types/TaskTypes';
 import { useAppDispatch } from '../../../app/providers/hooks';
 
@@ -12,7 +12,7 @@ export function CreateTask() {
     const taskToCreate: Task = {
       ...newTask,
     };
-    dispatch(addTask(taskToCreate));
+    dispatch(createTask(taskToCreate));
     navigate('/');
   };
 

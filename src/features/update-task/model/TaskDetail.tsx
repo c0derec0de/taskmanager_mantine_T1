@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Title } from '@mantine/core';
-import { TaskForm } from '../ui/TaskForm';
+import { TaskForm } from '../../../entities/task/ui/TaskForm/TaskForm';
 import { updateTask } from '../../../app/providers/taskSlice';
 import { type Task } from '../../../shared/types/TaskTypes';
 import { useAppDispatch } from '../../../app/providers/hooks';

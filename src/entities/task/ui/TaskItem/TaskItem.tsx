@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/providers/hooks';
 import { deleteTask } from '../../../../app/providers/taskSlice';
 import { dateParser } from '../../../../shared/lib/date/dateParser';
-import { IconCalendar } from '@tabler/icons-react';
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 Менеджер задач
-Деплой: https://taskmanager-mantine-t1-h0buikuce-c0derec0des-projects.vercel.app
+**🔗 Демо**: [Посмотреть на Vercel](https://taskmanager-mantine-t1-h0buikuce-c0derec0des-projects.vercel.app)
 
 Запуск:
 - npm install

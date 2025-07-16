@@ -77,7 +77,7 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
             color='black'
             className={classes.secondaryAction}
           >
-            Cancel
+            Закрыть
           </Button>
           <Button
             type='submit'
@@ -86,7 +86,7 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
             radius='md'
             className={classes.primaryAction}
           >
-            Save Task
+            Сохранить
           </Button>
         </div>
       </div>

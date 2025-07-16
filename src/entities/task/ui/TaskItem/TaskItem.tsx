@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/providers/hooks';
 import { deleteTask } from '../../../../app/providers/taskSlice';
 import { dateParser } from '../../../../shared/lib/date/dateParser';
+import { IconCalendar } from '@tabler/icons-react';
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();
@@ -42,12 +43,14 @@ export function TaskItem({ task }: { task: Task }) {
         {task.title}
       </Text>
 
+      <Group justify='flex-end' mb='sm'>
+        <Text fz='xs' c='dimmed' className={classes.date}>
+          {dateParser(task.createdAt)}
+        </Text>
+      </Group>
+
       <Text fz='sm' c='dimmed' mb='sm' className={classes.description} lineClamp={2}>
         {task.description}
-      </Text>
-
-      <Text fz='sm' c='dimmed' mb='sm' className={classes.date} lineClamp={2}>
-        {dateParser(task.createdAt)}
       </Text>
 
       <Group gap={4} mb='md' className={classes.badgesWrapper}>

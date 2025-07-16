@@ -21,8 +21,8 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
     <form onSubmit={form.onSubmit(handleSubmit)} className={classes.form}>
       <div className={classes.formContent}>
         <TextInput
-          label='Title'
-          placeholder='Enter task name'
+          label='Название'
+          placeholder='Введите название'
           size='md'
           radius='md'
           {...form.getInputProps('title')}
@@ -30,8 +30,8 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
         />
 
         <Textarea
-          label='Description'
-          placeholder='Task details'
+          label='Описание'
+          placeholder='Детали таска'
           autosize
           minRows={3}
           size='md'
@@ -42,7 +42,7 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
 
         <div className={classes.selectGroup}>
           <Select
-            label='Category'
+            label='Категория'
             data={categories}
             size='md'
             radius='md'
@@ -50,7 +50,7 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
             classNames={{ input: classes.select }}
           />
           <Select
-            label='Status'
+            label='Статус'
             data={statuses}
             size='md'
             radius='md'
@@ -58,7 +58,7 @@ export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
             classNames={{ input: classes.select }}
           />
           <Select
-            label='Priority'
+            label='Приоритет'
             data={priorities}
             size='md'
             radius='md'

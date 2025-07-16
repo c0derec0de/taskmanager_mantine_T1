@@ -1,9 +1,6 @@
-Менеджер задач
-**🔗 Демо**: [Посмотреть на Vercel](https://taskmanager-mantine-t1-h0buikuce-c0derec0des-projects.vercel.app)
+# Менеджер задач
 
-Запуск:
-- npm install
-- npm run dev 
+**🔗 Демо**: [Посмотреть на Vercel](https://taskmanager-mantine-t1-h0buikuce-c0derec0des-projects.vercel.app)
 
 Ветка hw_1 - 1 домашнее задание 
 - React с использованием TypeScript
@@ -13,3 +10,8 @@
 
 Ветка hw_2 - 2 домашнее задание
 - State-менеджер: Redux Toolkit
+
+Запуск:
+```bash
+- npm install
+- npm run dev 

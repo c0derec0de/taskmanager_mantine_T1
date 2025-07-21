@@ -4,12 +4,26 @@ import classes from './MainPage.module.css';
 import { TaskList } from '@/entities/task/ui/TaskList/TaskList';
 import { TaskFilterMenu } from '@/features/filter-tasks/ui/taskfilter-menu/TaskFilterMenu';
 import { useAppDispatch, useAppSelector } from '@app/providers/hooks';
-import { setFilters, selectFilteredTasks } from '@app/providers/taskSlice';
+import {
+  setFilters,
+  selectFilteredTasks,
+  selectLoading,
+  selectError,
+  loadTasks,
+} from '@app/providers/taskSlice';
+import { useEffect } from 'react';
 
 const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const filteredTasks = useAppSelector(selectFilteredTasks);
+  const loading = useAppSelector(selectLoading);
+  const error = useAppSelector(selectError);
+
+  useEffect(() => {
+    dispatch(loadTasks());
+  }, [dispatch]);
 
   const handleFilterChange = (filters: {
     category?: string;
@@ -22,6 +36,7 @@ const MainPage = () => {
   const handleCreateTask = () => {
     navigate('/task/new');
   };
+
   return (
     <div className={classes.main}>
       <Container size='md'>
@@ -40,7 +55,11 @@ const MainPage = () => {
       </Container>
 
       <div className={classes.taskListWrapper}>
-        {filteredTasks.length > 0 ? (
+        {error ? (
+          <div className={classes.error}>Ошибка загрузки задач: {error}</div>
+        ) : loading ? (
+          <div className={classes.taskListNotExists}>Загрузка задач...</div>
+        ) : filteredTasks.length > 0 ? (
           <TaskList tasks={filteredTasks} />
         ) : (
           <div className={classes.taskListNotExists}>Задачи не найдены.</div>

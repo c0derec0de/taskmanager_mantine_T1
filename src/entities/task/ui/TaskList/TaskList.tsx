@@ -1,6 +1,7 @@
 import { Container, SimpleGrid, Stack, Title, Paper } from '@mantine/core';
 import { TaskItem } from '@/entities/task/ui/TaskItem/TaskItem';
-import { StatusTask, type Task } from '@shared/types/TaskTypes';
+import { StatusTask } from '@shared/types/TaskTypes';
+import { type Task } from '@shared/types/TaskTypes';
 
 interface TaskListProps {
   tasks: Task[];
@@ -13,7 +14,7 @@ export function TaskList({ tasks }: TaskListProps) {
     { label: 'Done', value: StatusTask.DONE },
   ];
 
-  const getTasksByStatus = (status: string) => tasks.filter((task) => task.status === status);
+  const getTasksByStatus = (status: StatusTask) => tasks.filter((task) => task.status === status);
 
   return (
     <Container my='md'>

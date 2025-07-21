@@ -3,13 +3,12 @@ import classes from './TaskItem.module.css';
 import type { Task } from '@shared/types/TaskTypes';
 import { badgesStyles } from '../../model/badgesStyles';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../app/providers/hooks';
-import { deleteTask } from '../../../../app/providers/taskSlice';
-import { dateParser } from '../../../../shared/lib/date/dateParser';
+import { dateParser } from '@shared/lib/date/dateParser';
+import { useAppDispatch } from '@app/providers/hooks';
+import { deleteTaskThunk } from '@/app/providers/taskSlice';
 
 export function TaskItem({ task }: { task: Task }) {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const handleGoEditTask = () => {
@@ -18,9 +17,13 @@ export function TaskItem({ task }: { task: Task }) {
     });
   };
 
-  const handleGoDeleteTask = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleGoDeleteTask = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    dispatch(deleteTask(task.id));
+    try {
+      await dispatch(deleteTaskThunk(task.id)).unwrap();
+    } catch (error) {
+      console.log('Failed to delete task:', error);
+    }
   };
 
   function getBadge<T extends { key: string; label: string; emoji: string }>(

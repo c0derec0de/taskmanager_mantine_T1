@@ -9,13 +9,16 @@ import { useTaskForm } from '../../../../features/update-task/model/useTaskForm'
 import classes from './TaskForm.module.css';
 
 interface TaskFormProps {
-  task: Task;
+  task: Task | Omit<Task, 'id' | 'createdAt'>;
   onCancel: () => void;
-  onSave: (task: Task) => void;
+  onSave: (task: Omit<Task, 'id' | 'createdAt'>) => Promise<void>;
 }
 
 export function TaskForm({ task, onCancel, onSave }: TaskFormProps) {
-  const { form, handleSubmit } = useTaskForm(task, onSave);
+  const { form, handleSubmit } = useTaskForm({
+    initialTask: task,
+    onSave,
+  });
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)} className={classes.form}>

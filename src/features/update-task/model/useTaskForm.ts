@@ -1,38 +1,35 @@
 import { useForm } from '@mantine/form';
 import { type Task, CategoryTask, StatusTask, PriorityTask } from '@shared/types/TaskTypes';
 
-export function useTaskForm(initialTask: Partial<Task>, onSave: (task: Task) => void) {
+interface UseTaskFormOptions {
+  initialTask: Partial<Task>;
+  onSave: (task: Omit<Task, 'id' | 'createdAt'>) => Promise<void>;
+}
+
+export function useTaskForm({ initialTask, onSave }: UseTaskFormOptions) {
   const form = useForm<Task>({
     initialValues: {
       id: initialTask.id ?? '',
       title: initialTask.title ?? '',
       description: initialTask.description ?? '',
-      category: initialTask.category ?? CategoryTask.FEATURE,
+      category: initialTask.category ?? CategoryTask.BUG,
       status: initialTask.status ?? StatusTask.TO_DO,
       priority: initialTask.priority ?? PriorityTask.MEDIUM,
       createdAt: initialTask.createdAt ?? new Date(),
     },
     validate: {
-      title: (value) => (value.trim().length === 0 ? 'Title is required' : null),
-      category: (value) => (!value ? 'Category is required' : null),
-      status: (value) => (!value ? 'Status is required' : null),
-      priority: (value) => (!value ? 'Priority is required' : null),
+      title: (value) => (value.trim().length === 0 ? 'Название обязательно' : null),
+      category: (value) => (!value ? 'Категория обязательна' : null),
+      status: (value) => (!value ? 'Статус обязателен' : null),
+      priority: (value) => (!value ? 'Приоритет обязателен' : null),
     },
     validateInputOnChange: true,
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    const taskToSave: Task = {
-      ...values,
-      id: values.id || generateTaskId(),
-      createdAt: values.createdAt instanceof Date ? values.createdAt : new Date(values.createdAt),
-    };
-    onSave(taskToSave);
+  const handleSubmit = (values: Task) => {
+    const { id, createdAt, ...taskData } = values;
+    onSave(taskData);
   };
 
   return { form, handleSubmit };
-}
-
-function generateTaskId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
 }
